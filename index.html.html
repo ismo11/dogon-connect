@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dogon Connect – Culture | Unité | Fraternité</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ocre: #C4541A;
+      --ocre-dark: #8B3510;
+      --ocre-light: #F4A66A;
+      --sable: #F2E8D9;
+      --sable-dark: #DDD0BA;
+      --terre: #2A1A0E;
+      --crème: #FBF6EE;
+      --blanc: #FFFFFF;
+      --gris: #6B5E52;
+      --transition: 0.3s ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--crème);
+      color: var(--terre);
+      overflow-x: hidden;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(42, 26, 14, 0.96);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 40px;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ocre-light);
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--sable-dark);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      transition: color var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--ocre-light); }
+
+    .nav-cta {
+      background: var(--ocre);
+      color: white !important;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-weight: 500 !important;
+    }
+
+    .nav-cta:hover { background: var(--ocre-dark); color: white !important; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--sable-dark);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* ===== HERO ===== */
+    #accueil {
+      min-height: 100vh;
+      background-image:
+        linear-gradient(to bottom, rgba(42,26,14,0.65) 0%, rgba(42,26,14,0.45) 50%, rgba(42,26,14,0.80) 100%),
+        url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Tellem_Dogon_cliff_village.jpg/1280px-Tellem_Dogon_cliff_village.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 20px 60px;
+    }
+
+    .hero-content {
+      max-width: 780px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--ocre-light);
+      border: 1px solid var(--ocre-light);
+      padding: 6px 16px;
+      border-radius: 2px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s ease forwards;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 8vw, 88px);
+      font-weight: 900;
+      color: white;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s ease forwards;
+    }
+
+    .hero-title span { color: var(--ocre-light); }
+
+    .hero-sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.82);
+      font-weight: 300;
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s ease forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s ease forwards;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .btn-primary {
+      background: var(--ocre);
+      color: white;
+    }
+    .btn-primary:hover { background: var(--ocre-dark); transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 90px 20px; }
+
+    .section-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--ocre);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--terre);
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--gris);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    /* ===== À PROPOS ===== */
+    #apropos {
+      background: var(--sable);
+    }
+
+    .apropos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      margin-top: 56px;
+    }
+
+    .apropos-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 6px;
+      box-shadow: 0 20px 60px rgba(42,26,14,0.25);
+    }
+
+    .apropos-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      margin-bottom: 16px;
+      color: var(--terre);
+    }
+
+    .apropos-text p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--gris);
+      margin-bottom: 16px;
+    }
+
+    .valeurs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .valeur-item {
+      background: white;
+      border-radius: 6px;
+      padding: 20px;
+      border-left: 3px solid var(--ocre);
+    }
+
+    .valeur-item strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ocre-dark);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .valeur-item p {
+      font-size: 13px;
+      color: var(--gris);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* ===== ÉVÉNEMENTS ===== */
+    #evenements { background: var(--crème); }
+
+    .events-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .event-card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--sable-dark);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .event-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(42,26,14,0.12);
+    }
+
+    .event-card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .event-card-body { padding: 24px; }
+
+    .event-date {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ocre);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .event-card-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: var(--terre);
+    }
+
+    .event-card-body p {
+      font-size: 14px;
+      color: var(--gris);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .event-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 13px;
+      color: var(--gris);
+      border-top: 1px solid var(--sable-dark);
+      padding-top: 16px;
+    }
+
+    .event-tag {
+      background: var(--sable);
+      color: var(--ocre-dark);
+      padding: 4px 10px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* ===== GALERIE ===== */
+    #galerie { background: var(--terre); }
+
+    #galerie .section-title { color: white; }
+    #galerie .section-label { color: var(--ocre-light); }
+    #galerie .section-desc { color: rgba(255,255,255,0.65); }
+
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 12px;
+      margin-top: 48px;
+    }
+
+    .galerie-item {
+      overflow: hidden;
+      border-radius: 6px;
+      position: relative;
+    }
+
+    .galerie-item:first-child {
+      grid-column: 1 / 3;
+      grid-row: 1 / 3;
+    }
+
+    .galerie-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+      min-height: 200px;
+    }
+
+    .galerie-item:first-child img { min-height: 400px; }
+
+    .galerie-item:hover img { transform: scale(1.05); }
+
+    .galerie-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(42,26,14,0.7) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity var(--transition);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+
+    .galerie-item:hover .galerie-overlay { opacity: 1; }
+
+    .galerie-overlay span {
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* ===== ADHÉSION ===== */
+    #adhesion { background: var(--sable); }
+
+    .adhesion-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .adhesion-card {
+      background: white;
+      border-radius: 8px;
+      padding: 36px 28px;
+      border: 1px solid var(--sable-dark);
+      text-align: center;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .adhesion-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(42,26,14,0.10);
+    }
+
+    .adhesion-card.featured {
+      background: var(--terre);
+      border-color: var(--ocre);
+    }
+
+    .adhesion-card.featured h3,
+    .adhesion-card.featured p,
+    .adhesion-card.featured li { color: rgba(255,255,255,0.85) !important; }
+
+    .adhesion-card.featured .plan-name { color: var(--ocre-light) !important; }
+
+    .plan-name {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ocre);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .adhesion-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      margin-bottom: 8px;
+      color: var(--terre);
+    }
+
+    .adhesion-card > p {
+      font-size: 14px;
+      color: var(--gris);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .adhesion-card ul {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 32px;
+    }
+
+    .adhesion-card ul li {
+      font-size: 14px;
+      color: var(--gris);
+      padding: 7px 0;
+      border-bottom: 1px solid var(--sable);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .adhesion-card ul li::before {
+      content: '✓';
+      color: var(--ocre);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ===== CONTACT ===== */
+    #contact { background: var(--crème); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 64px;
+      margin-top: 56px;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      margin-bottom: 16px;
+      color: var(--terre);
+    }
+
+    .contact-info p {
+      font-size: 15px;
+      color: var(--gris);
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--sable);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .contact-item-text strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--terre);
+      margin-bottom: 3px;
+    }
+
+    .contact-item-text span {
+      font-size: 14px;
+      color: var(--gris);
+    }
+
+    /* FORMULAIRE */
+    .contact-form {
+      background: white;
+      border-radius: 10px;
+      padding: 40px;
+      border: 1px solid var(--sable-dark);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--terre);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 12px 14px;
+      border: 1px solid var(--sable-dark);
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--terre);
+      background: var(--crème);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--ocre);
+      box-shadow: 0 0 0 3px rgba(196, 84, 26, 0.12);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 130px; }
+
+    .form-submit {
+      width: 100%;
+      padding: 15px;
+      background: var(--ocre);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .form-submit:hover { background: var(--ocre-dark); }
+
+    #form-msg {
+      display: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    #form-msg.success {
+      background: #eaf3de;
+      color: #3b6d11;
+      border: 1px solid #c0dd97;
+      display: block;
+    }
+
+    #form-msg.error {
+      background: #fcebeb;
+      color: #a32d2d;
+      border: 1px solid #f7c1c1;
+      display: block;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--terre);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--ocre-light);
+      margin-bottom: 12px;
+    }
+
+    footer p { font-size: 13px; line-height: 1.7; }
+
+    footer a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      margin: 0 10px;
+      font-size: 13px;
+      transition: color var(--transition);
+    }
+
+    footer a:hover { color: var(--ocre-light); }
+
+    .footer-links { margin: 16px 0; }
+    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 24px auto; max-width: 200px; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(42,26,14,0.98); padding: 20px; gap: 4px; }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .hamburger { display: flex; }
+      .apropos-grid { grid-template-columns: 1fr; gap: 32px; }
+      .galerie-grid { grid-template-columns: 1fr 1fr; }
+      .galerie-item:first-child { grid-column: 1 / 3; }
+      .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+      .form-row { grid-template-columns: 1fr; }
+      .valeurs { grid-template-columns: 1fr; }
+      section { padding: 64px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .galerie-grid { grid-template-columns: 1fr; }
+      .galerie-item:first-child { grid-column: 1; grid-row: 1; }
+      .contact-form { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Dogon Connect</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#evenements">Événements</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#adhesion">Adhésion</a></li>
+    <li><a href="#contact" class="nav-cta">Nous rejoindre</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="accueil" style="padding:0;">
+  <div class="hero-content">
+    <div class="hero-badge">UFJDCI — Côte d'Ivoire</div>
+    <h1 class="hero-title">La jeunesse<br><span>Dogon</span><br>unie</h1>
+    <p class="hero-sub">Plateforme de la communauté Dogon de Côte d'Ivoire. Culture, transmission et solidarité pour les générations d'aujourd'hui.</p>
+    <div class="hero-actions">
+      <a href="#adhesion" class="btn btn-primary">Rejoindre la communauté</a>
+      <a href="#apropos" class="btn btn-outline">Découvrir notre mission</a>
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section id="apropos">
+  <div class="section-inner">
+    <div class="section-label">Qui sommes-nous</div>
+    <h2 class="section-title">Gardiens d'un héritage<br>millénaire</h2>
+    <p class="section-desc">L'UFJDCI rassemble les jeunes Dogon de Côte d'Ivoire autour d'une identité commune, forte et vivante.</p>
+
+    <div class="apropos-grid">
+      <img
+        class="apropos-img"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Mali_-_Pays_Dogon.jpg/800px-Mali_-_Pays_Dogon.jpg"
+        alt="Pays Dogon – falaises de Bandiagara"
+        loading="lazy"
+      >
+      <div class="apropos-text">
+        <h3>Une plateforme au service de la diaspora</h3>
+        <p>Fondée dans un esprit de fraternité, Dogon Connect est l'espace numérique de l'Union Fraternelle des Jeunes Dogon de Côte d'Ivoire. Nous créons des ponts entre tradition et modernité, entre le Pays Dogon et Abidjan.</p>
+        <p>Notre mission : préserver les traditions, valoriser le patrimoine culturel Dogon et favoriser la solidarité entre les membres de notre communauté, où qu'ils soient.</p>
+
+        <div class="valeurs">
+          <div class="valeur-item">
+            <strong>Culture</strong>
+            <p>Préservation des traditions, langues et savoirs ancestraux Dogon</p>
+          </div>
+          <div class="valeur-item">
+            <strong>Fraternité</strong>
+            <p>Solidarité active entre les membres de la diaspora</p>
+          </div>
+          <div class="valeur-item">
+            <strong>Jeunesse</strong>
+            <p>Accompagnement et visibilité des talents de notre génération</p>
+          </div>
+          <div class="valeur-item">
+            <strong>Unité</strong>
+            <p>Un espace commun par-delà les frontières et les générations</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÉVÉNEMENTS -->
+<section id="evenements">
+  <div class="section-inner">
+    <div class="events-header">
+      <div>
+        <div class="section-label">Agenda</div>
+        <h2 class="section-title">Événements à venir</h2>
+      </div>
+      <a href="#contact" class="btn btn-primary" style="white-space:nowrap;">Proposer un événement</a>
+    </div>
+
+    <div class="events-grid">
+      <div class="event-card">
+        <img
+          class="event-card-img"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Masque_Dogon.jpg/800px-Masque_Dogon.jpg"
+          alt="Festival des masques Dogon"
+          loading="lazy"
+        >
+        <div class="event-card-body">
+          <div class="event-date">15 Août 2025 — Abidjan</div>
+          <h3>Festival des Masques</h3>
+          <p>Grande cérémonie annuelle de présentation des masques Dogon, avec danses, musiques et récits des anciens.</p>
+          <div class="event-meta">
+            <span class="event-tag">Culturel</span>
+            <span>Cocody, Abidjan</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <img
+          class="event-card-img"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/March%C3%A9_Dogon.jpg/800px-March%C3%A9_Dogon.jpg"
+          alt="Journée des savoirs Dogon"
+          loading="lazy"
+        >
+        <div class="event-card-body">
+          <div class="event-date">7 Septembre 2025 — En ligne</div>
+          <h3>Journée des Savoirs</h3>
+          <p>Conférences et ateliers en ligne sur l'astronomie Dogon, l'architecture des falaises et la cosmogonie Sigui.</p>
+          <div class="event-meta">
+            <span class="event-tag">Formation</span>
+            <span>Zoom / YouTube</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <img
+          class="event-card-img"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Dogon_village.jpg/1024px-Dogon_village.jpg"
+          alt="Repas communautaire"
+          loading="lazy"
+        >
+        <div class="event-card-body">
+          <div class="event-date">20 Octobre 2025 — Abobo</div>
+          <h3>Repas Communautaire</h3>
+          <p>Retrouvailles fraternelles autour des plats traditionnels Dogon. Ouvert à toute la communauté et à leurs proches.</p>
+          <div class="event-meta">
+            <span class="event-tag">Fraternité</span>
+            <span>Abobo, Abidjan</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section id="galerie">
+  <div class="section-inner">
+    <div class="section-label">Patrimoine visuel</div>
+    <h2 class="section-title">Galerie Dogon</h2>
+    <p class="section-desc">Un regard sur les paysages, traditions et visages qui font la richesse du peuple Dogon.</p>
+
+    <div class="galerie-grid">
+      <div class="galerie-item">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Tellem_Dogon_cliff_village.jpg/1024px-Tellem_Dogon_cliff_village.jpg"
+          alt="Village Tellem dans les falaises de Bandiagara"
+          loading="lazy"
+        >
+        <div class="galerie-overlay"><span>Villages des falaises de Bandiagara</span></div>
+      </div>
+      <div class="galerie-item">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Masque_Dogon.jpg/800px-Masque_Dogon.jpg"
+          alt="Masque Dogon"
+          loading="lazy"
+        >
+        <div class="galerie-overlay"><span>Masques cérémoniels</span></div>
+      </div>
+      <div class="galerie-item">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/March%C3%A9_Dogon.jpg/800px-March%C3%A9_Dogon.jpg"
+          alt="Marché Dogon"
+          loading="lazy"
+        >
+        <div class="galerie-overlay"><span>Marchés traditionnels</span></div>
+      </div>
+      <div class="galerie-item">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Mali_-_Pays_Dogon.jpg/800px-Mali_-_Pays_Dogon.jpg"
+          alt="Paysage du Pays Dogon"
+          loading="lazy"
+        >
+        <div class="galerie-overlay"><span>Paysages du Mali</span></div>
+      </div>
+      <div class="galerie-item">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Dogon_village.jpg/1024px-Dogon_village.jpg"
+          alt="Village Dogon"
+          loading="lazy"
+        >
+        <div class="galerie-overlay"><span>Architecture villageoise</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADHÉSION -->
+<section id="adhesion">
+  <div class="section-inner">
+    <div class="section-label">Rejoindre</div>
+    <h2 class="section-title">Adhérer à la communauté</h2>
+    <p class="section-desc">Rejoins l'UFJDCI et participe activement à la vie de notre communauté Dogon en Côte d'Ivoire.</p>
+
+    <div class="adhesion-cards">
+      <div class="adhesion-card">
+        <div class="plan-name">Membre Sympathisant</div>
+        <h3>Gratuit</h3>
+        <p>Pour ceux qui souhaitent s'informer et soutenir la cause Dogon</p>
+        <ul>
+          <li>Accès à la newsletter mensuelle</li>
+          <li>Invitations aux événements publics</li>
+          <li>Accès au groupe WhatsApp</li>
+        </ul>
+        <a href="#contact" class="btn btn-outline" style="border-color: var(--ocre); color: var(--ocre); display:block; text-align:center;">S'inscrire</a>
+      </div>
+
+      <div class="adhesion-card featured">
+        <div class="plan-name">Membre Actif</div>
+        <h3 style="color: var(--ocre-light);">Cotisation</h3>
+        <p>Pour les jeunes Dogon qui s'engagent pleinement dans la communauté</p>
+        <ul>
+          <li>Tous les avantages Sympathisant</li>
+          <li>Participation aux assemblées</li>
+          <li>Droit de vote aux élections</li>
+          <li>Accès aux projets communautaires</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" style="display:block; text-align:center;">Devenir membre actif</a>
+      </div>
+
+      <div class="adhesion-card">
+        <div class="plan-name">Partenaire</div>
+        <h3>Organisation</h3>
+        <p>Pour les associations, entreprises et institutions qui soutiennent nos actions</p>
+        <ul>
+          <li>Co-organisation d'événements</li>
+          <li>Visibilité sur la plateforme</li>
+          <li>Partenariats communautaires</li>
+        </ul>
+        <a href="#contact" class="btn btn-outline" style="border-color: var(--ocre); color: var(--ocre); display:block; text-align:center;">Nous contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Écris-nous</h2>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Restons en contact</h3>
+        <p>Une question, une idée d'événement, ou tu veux simplement rejoindre la communauté ? Notre équipe te répondra dans les 48h.</p>
+
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div class="contact-item-text">
+            <strong>Email</strong>
+            <span>dogonconnect@gmail.com</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-item-text">
+            <strong>Localisation</strong>
+            <span>Abidjan, Côte d'Ivoire</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div class="contact-item-text">
+            <strong>WhatsApp</strong>
+            <span>Groupe communautaire disponible sur inscription</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <!--
+          POUR ACTIVER LE FORMULAIRE :
+          1. Va sur https://formspree.io et crée un compte gratuit
+          2. Crée un nouveau formulaire — tu obtiendras un ID (ex: xpwzjdrk)
+          3. Remplace "TON_ID_FORMSPREE" ci-dessous par cet ID
+          4. Supprime l'attribut onsubmit et le JS de simulation si tu veux utiliser la redirection Formspree
+        -->
+        <form id="contactForm" action="https://formspree.io/f/TON_ID_FORMSPREE" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prenom">Prénom</label>
+              <input type="text" id="prenom" name="prenom" placeholder="Ton prénom" required>
+            </div>
+            <div class="form-group">
+              <label for="nom">Nom</label>
+              <input type="text" id="nom" name="nom" placeholder="Ton nom" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Adresse email</label>
+            <input type="email" id="email" name="email" placeholder="ton@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="sujet">Sujet</label>
+            <select id="sujet" name="sujet">
+              <option value="">— Sélectionne un sujet —</option>
+              <option value="adhesion">Adhésion à l'UFJDCI</option>
+              <option value="evenement">Proposition d'événement</option>
+              <option value="partenariat">Partenariat</option>
+              <option value="autre">Autre demande</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Ton message…" required></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Envoyer le message →</button>
+          <div id="form-msg"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Dogon Connect</div>
+  <p>Plateforme de l'Union Fraternelle des Jeunes Dogon de Côte d'Ivoire</p>
+  <div class="footer-links">
+    <a href="#accueil">Accueil</a>
+    <a href="#apropos">À propos</a>
+    <a href="#evenements">Événements</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <hr class="footer-divider">
+  <p style="font-size:12px;">&copy; 2025 Dogon Connect — Tous droits réservés &nbsp;|&nbsp; Inspiré par l'esprit du Toguna</p>
+</footer>
+
+<script>
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+
+  // Ferme le menu mobile au clic sur un lien
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // Formulaire : simulation locale si Formspree pas encore configuré
+  const form = document.getElementById('contactForm');
+  const formMsg = document.getElementById('form-msg');
+
+  form.addEventListener('submit', async function(e) {
+    const action = form.getAttribute('action');
+    if (action.includes('TON_ID_FORMSPREE')) {
+      // Mode démo : empêche l'envoi réel
+      e.preventDefault();
+      const btn = form.querySelector('.form-submit');
+      btn.disabled = true;
+      btn.textContent = 'Envoi en cours…';
+      setTimeout(() => {
+        formMsg.className = 'success';
+        formMsg.textContent = '✓ Message envoyé ! (Configurer Formspree pour l\'envoi réel)';
+        form.reset();
+        btn.disabled = false;
+        btn.textContent = 'Envoyer le message →';
+      }, 1200);
+    }
+    // Si Formspree configuré, laisser la soumission se faire normalement
+  });
+</script>
+
+</body>
+</html>
